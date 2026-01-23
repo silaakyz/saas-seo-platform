@@ -169,19 +169,3 @@ erDiagram
     }
 ```
 
-## Katkıda Bulunma
-
-Katkılarınızı memnuniyetle karşılıyoruz! Detaylar için lütfen [Katkıda Bulunma Kuralları](CONTRIBUTING.md) dosyasına bakın.
-
-## Lisans
-
-Bu proje MIT Lisansı altında lisanslanmıştır - detaylar için [LICENSE](LICENSE) dosyasına bakın.
-
-## Destek
-
-Destek için support@saasseoplatform.com adresine e-posta gönderin veya [Discord topluluğumuza](https://discord.gg/saas-seo) katılın.
-
----
-
-**SaaS SEO Platformu** - İçerik pazarlamanızı otomatikleştirin, SEO'nuzu artırın ve rekabette önde kalın.</content>
-<parameter name="filePath">D:\Github\saas_seo_platform\README.md
