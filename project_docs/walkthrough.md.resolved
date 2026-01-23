@@ -1,0 +1,39 @@
+# AutoSEO Engine - Final MVP Walkthrough
+
+## 🚀 System Status
+**ALL SYSTEMS OPERATIONAL**
+
+1.  **Crawler**: Can scan any website and discover URLs.
+    *   *Test*: `node test-crawl.js`
+2.  **Intelligence Brain (AI)**:
+    *   **Linker**: Context-aware internal linking (Mock Mode active).
+    *   **Rewriter**: Content optimizer (Mock Mode active).
+3.  **Automation Loop**:
+    *   Crawler triggers -> `PROCESS_ARTICLE` job -> AI Processor -> Database Save.
+
+## 🛠️ How to Use (Developers)
+
+### 1. Start Support Server
+```bash
+cd core
+npm run start:dev
+```
+
+### 2. Trigger a Crawl
+```bash
+# In another terminal
+node test-crawl.js
+```
+*Watch the logs to see the "Discovery -> Rewrite -> Publish" pipeline.*
+
+### 3. Check Database
+```bash
+node verify-processed.js
+```
+*Verifies that articles have been rewritten and marked as 'PUBLISHED'.*
+
+## 🔮 What's Next (Roadmap)
+- [ ] **UI Dashboard**: Build a Next.js Admin Panel.
+- [ ] **Production AI**: Add real `OPENAI_API_KEY`.
+- [ ] **Job Queue**: Switch from In-Memory to Redis for scale.
+- [ ] **Deployment**: Dockerize for cloud (AWS/DigitalOcean).

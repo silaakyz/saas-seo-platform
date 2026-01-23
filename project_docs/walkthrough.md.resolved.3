@@ -1,0 +1,32 @@
+# AutoSEO Engine - MVP Walkthrough
+
+## Status
+- **Core Engine**: Running (NestJS + SQLite).
+- **Crawler**: Active (Playwright).
+- **Intelligence**: Active (LLM Service).
+
+## Feature: AI Semantic Linking
+The engine now uses an LLM (Language Model) to validate if a keyword should be linked in a specific context.
+
+### Configuration
+- **Real Mode**: Set `OPENAI_API_KEY` in [.env](file:///C:/Users/akyzs/autoseo-engine/core/.env).
+- **Mock Mode**: Automatic fallback if no key is present (Always approves links).
+
+### How to Test
+1.  Add a keyword (e.g., "NestJS").
+2.  Send text to `/keywords/test-link`.
+3.  **Result**: The system asks the AI "Is 'NestJS' relevant here?" and links it only if the answer is YES.
+
+## Feature: AI Content Rewriter
+Optimizes content for freshness.
+
+### How to Test
+```bash
+node test-rewrite.js
+```
+*Result*: Original HTML + `[Updated by AutoSEO AI Engine for 2026]` tag.
+
+## Code Structure
+- `src/modules/crawler`: Scrapes pages.
+- [src/modules/intelligence/linking.engine.ts](file:///C:/Users/akyzs/autoseo-engine/core/src/modules/intelligence/linking.engine.ts): Smarter Linking.
+- [src/modules/intelligence/seo-optimizer.service.ts](file:///C:/Users/akyzs/autoseo-engine/core/src/modules/intelligence/seo-optimizer.service.ts): Content Rewriter.

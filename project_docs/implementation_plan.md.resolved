@@ -1,0 +1,23 @@
+# Implementation Plan: AI Intelligence Layer
+
+The goal is to transition from "Regex-based matching" to "Semantic Understanding".
+
+## 1. Core LLM Service
+We will create a centralized `LLMService` that wraps OpenAI (or other providers).
+*   **Features**: Retries, Rate Limiting, Mock Mode (for dev without keys).
+*   **Stack**: `openai` npm package.
+
+## 2. Smart Linking (Semantic Linker)
+Instead of `text.replace(/keyword/g)`, we will use a 2-step process:
+1.  **Candidate Selection**: Find potential matches (fuzzy search or broad regex).
+2.  **AI Validation**: Ask LLM: *"Here is a sentence: '...'. Should I link 'NestJS' to 'https://nestjs.com'? Is it relevant?"*
+    *   *Result*: Higher quality interaction, no spammy links.
+
+## 3. SEO Content Optimizer (Rewriter)
+A new service `ContentOptimizer` that accepts [Article](file:///C:/Users/akyzs/autoseo-engine/core/src/modules/articles/entities/article.entity.ts#4-43) content.
+*   **Prompt**: "You are an expert editor. Rewrite this content to be more engaging, fix grammar, and update any dates relative to [Current Year]."
+*   **Output**: New HTML/Markdown.
+
+## Dependencies
+- `openai` library.
+- Environment Variable: `OPENAI_API_KEY`.
