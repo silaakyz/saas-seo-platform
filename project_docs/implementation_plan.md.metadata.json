@@ -1,5 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Technical plan for integrating AI (LLM) into the AutoSEO engine.\nFocuses on:\n1. LLM Service abstraction.\n2. Semantic Keyword Matching.\n3. Content Rewriting architecture.",
-  "updatedAt": "2026-01-23T20:27:52.763025300Z"
-}
