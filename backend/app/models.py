@@ -12,6 +12,11 @@ class Article(Base):
     url = Column(String, unique=True, nullable=False)
     title = Column(String, nullable=False)
     content_summary = Column(Text) # Vektörleme için özet
+    
+    # --- YENİ EKLENECEK SATIR ---
+    target_keyword = Column(String, nullable=True) # Anahtar kelimeyi burada saklayacağız
+    # ----------------------------
+    
     publish_date = Column(DateTime, default=datetime.utcnow)
     
     # KRİTİK KISIM: Makalenin anlamını tutan 1536 boyutlu vektör (OpenAI standardı)

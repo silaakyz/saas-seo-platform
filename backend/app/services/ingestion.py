@@ -101,6 +101,7 @@ def pipeline_execution(url, db, user_id):
             publish_date=publish_date_val,
             embedding=embedding,
             user_id=user_id,
+            target_keyword=analysis.get('target_keyword'),
             raw_content_hash=str(hash(text_content)) # Değişiklik takibi için
         )
         
@@ -124,6 +125,7 @@ def analyze_with_llm(text_chunk):
     3. summary: (string) İçeriğin 2 cümlelik özeti.
     4. publish_date: (string) YYYY-MM-DD formatında tarih. Eğer metinde tarih yoksa bugünün tarihini ver.
     5. language: (string) İçeriğin dili (tr/en).
+    6. target_keyword: (string) Bu içerik için en uygun tekil SEO hedef anahtar kelimesi (örn: "yapay zeka", "seo optimizasyonu").
     """
     
     try:
