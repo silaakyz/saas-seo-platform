@@ -6,3 +6,7 @@ dist/
 *.sqlite-journal
 coverage/
 .DS_Store
+venv/
+backend/venv/
+__pycache__/
+*.pyc
