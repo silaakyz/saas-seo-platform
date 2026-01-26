@@ -101,7 +101,7 @@ def pipeline_execution(url, db, user_id):
             publish_date=publish_date_val,
             embedding=embedding,
             user_id=user_id,
-            target_keyword=analysis.get('target_keyword'),
+            target_keyword=analysis.get('target_keyword', analysis['title']),
             raw_content_hash=str(hash(text_content)) # Değişiklik takibi için
         )
         
@@ -120,12 +120,12 @@ def analyze_with_llm(text_chunk):
     """
     prompt = """
     Aşağıdaki metni analiz et ve JSON formatında şu bilgileri ver:
-    1. is_blog_post: (boolean) Bu bir makale/blog yazısı mı? (Ürün, iletişim, ana sayfa ise false ver).
-    2. title: (string) Makalenin başlığı.
-    3. summary: (string) İçeriğin 2 cümlelik özeti.
-    4. publish_date: (string) YYYY-MM-DD formatında tarih. Eğer metinde tarih yoksa bugünün tarihini ver.
-    5. language: (string) İçeriğin dili (tr/en).
-    6. target_keyword: (string) Bu içerik için en uygun tekil SEO hedef anahtar kelimesi (örn: "yapay zeka", "seo optimizasyonu").
+    1. is_blog_post: (boolean) Bu bir makale mi?
+    2. title: (string) Başlık.
+    3. summary: (string) 2 cümlelik özet.
+    4. publish_date: (string) YYYY-MM-DD. Yoksa null.
+    
+    5. target_keyword: (string) Bu makaleyi en iyi tanımlayan 1-2 kelimelik SEO anahtar kelimesi (Örn: 'SEO Fiyatları', 'Python Dersleri'). Başlıktan türet.
     """
     
     try:
