@@ -163,5 +163,3 @@ python run.py
 streamlit run frontend.py
 ```
 
----
-*Geliştirilmiş Antigravity Raporlama Modülü Tarafından Oluşturulmuştur.*
