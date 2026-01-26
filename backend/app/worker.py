@@ -40,12 +40,14 @@ def check_and_update_articles():
             current_content = ""
             
             if downloaded:
-                current_content = trafilatura.extract(downloaded) or article.content_summary
+                # Mega Prompt expects RAW HTML to preserve structure, not extracted text.
+                current_content = downloaded
             else:
                 current_content = article.content_summary # Fallback
             
-            # 2. Rewrite with AI
-            new_content = embeddings.rewrite_article(current_content)
+            # 2. Rewrite with AI (Mega Prompt)
+            target_kw = article.target_keyword or article.title
+            new_content = embeddings.rewrite_article(current_content, target_kw)
             
             if new_content:
                 # 3. Update DB
