@@ -45,54 +45,54 @@ def analyze_content(text: str):
         print(f"Error analyzing content: {e}")
         return {"title": "Unknown", "summary": text[:200]}
 
-def rewrite_article(text: str, target_keyword: str = ""):
+def intelligent_content_rewrite(old_html, target_keyword):
     """
-    Rewrites the article using GPT-4o-mini to modernize it while preserving HTML structure.
-    Uses the 'Mega Prompt'.
+    LLM kullanarak sayfa yapısını analiz eder ve bozmadan içeriği günceller.
     """
     import json
     
-    prompt = f"""
-SİSTEM ROLÜ:
-Sen uzman bir Frontend Developer ve SEO Editörüsün. Görevin, sana verilen eski bir web sayfası içeriğini analiz etmek, teknolojisini tespit etmek ve HTML yapısını (DOM Tree, CSS Class'ları, ID'leri) %100 KORUYARAK içeriği güncellemektir.
-
-GÖREVLER:
-1. ALTYAPI ANALİZİ: Verilen HTML koduna bakarak bu sitenin altyapısını tespit et (WordPress, React/Next.js, Wix, Shopify veya Standart HTML).
-2. İÇERİK GÜNCELLEME: Makale metnini günümüz (2025-2026) bilgilerine göre modernize et. Asla uydurma bilgi ekleme.
-3. YAPI KORUMA (KRİTİK): 
-   - <div class="...">, <span id="..."> gibi yapısal etiketlere ASLA dokunma.
-   - React data attribute'larını (data-reactid, data-v-...) asla silme.
-   - Sadece taglerin içindeki "innerText" (Görünen Metin) kısmını değiştir.
-   - Görsel linklerini (img src) koru veya yer tutucu (placeholder) koy, silme.
-
-GİRDİ VERİSİ (ESKİ HTML):
-{text[:15000]}
-
-HEDEF KEYWORD:
-{target_keyword}
-
-ÇIKTI FORMATI (JSON):
-Cevabını SADECE aşağıdaki JSON formatında ver:
-{{
-  "tech_stack": "Tespit edilen altyapı (örn: React, WordPress)",
-  "html_structure_analysis": "Kısaca yapının analizi (örn: Tailwind kullanılmış, yoğun div yapısı var)",
-  "updated_html_content": "Güncellenmiş, yapısı bozulmamış HTML kodu"
-}}
+    # 1. Promptu Hazırla
+    system_prompt = """
+    Sen uzman bir Frontend Developer ve SEO Editörüsün. 
+    Sana verilen HTML içeriğini, CSS class'larını ve DOM yapısını HİÇ BOZMADAN, 
+    sadece metinleri güncelleyerek (rewriting) modernize etmelisin.
+    Cevabı kesinlikle JSON formatında döndür.
     """
     
+    user_prompt = f"""
+    Lütfen aşağıdaki HTML içeriğini analiz et ve güncelle.
+    
+    HEDEF KEYWORD: {target_keyword}
+    
+    ESKİ HTML İÇERİĞİ:
+    {old_html[:15000]}
+    
+    İSTENEN JSON ÇIKTISI FORMATI:
+    {{
+      "tech_stack": "WordPress/React/Wix/HTML",
+      "updated_html_content": "Buraya güncellenmiş HTML gelecek"
+    }}
+    """
+
     try:
+        # 2. OpenAI'a Gönder (JSON Modunda)
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o-mini", # Veya gpt-4-turbo (Daha karmaşık yapılar için)
             messages=[
-                {"role": "system", "content": "Sen bir veri çıkarma ve frontend uzmanısın. Sadece JSON döndür."},
-                {"role": "user", "content": prompt}
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
             ],
-            response_format={"type": "json_object"}
+            response_format={"type": "json_object"}, # <--- BU ÇOK ÖNEMLİ
+            temperature=0.7
         )
-        content_json = json.loads(response.choices[0].message.content)
-        print(f"[{target_keyword}] Altyapı: {content_json.get('tech_stack')} | Analiz: {content_json.get('html_structure_analysis')}")
-        return content_json.get('updated_html_content')
+
+        # 3. JSON Yanıtı İşle
+        result = json.loads(response.choices[0].message.content)
         
+        print(f"🕵️ Tespit Edilen Altyapı: {result.get('tech_stack')}")
+        
+        return result.get('updated_html_content')
+
     except Exception as e:
-        print(f"Error rewriting article: {e}")
+        print(f"❌ AI Güncelleme Hatası: {e}")
         return None

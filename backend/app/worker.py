@@ -47,7 +47,7 @@ def check_and_update_articles():
             
             # 2. Rewrite with AI (Mega Prompt)
             target_kw = article.target_keyword or article.title
-            new_content = embeddings.rewrite_article(current_content, target_kw)
+            new_content = embeddings.intelligent_content_rewrite(current_content, target_kw)
             
             if new_content:
                 # 3. Update DB
