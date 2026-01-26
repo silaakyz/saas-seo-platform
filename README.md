@@ -163,3 +163,43 @@ python run.py
 streamlit run frontend.py
 ```
 
+---
+
+## 📖 7. Kullanım Kılavuzu (Adım Adım)
+
+Sistemi kurup çalıştırdıktan sonra (`streamlit run frontend.py`), tarayıcınızda açılan panel üzerinden şu adımları takip edin:
+
+### Adım 1: İçerik Tarama (Veri Girişi)
+1.  Sol menüden veya sekmelerden **"🌎 Site Tarama (Ingest)"** bölümüne gelin.
+2.  **Web Sitesi / Makale URL'si** kutucuğuna, taratmak istediğiniz blog adresini yazın.
+    *   *Tekil Makale:* `https://ornek.com/blog/seo-nedir`
+    *   *Tüm Site:* `https://ornek.com` (Sitemap varsa otomatik bulur ve toplu tarar).
+3.  **"🚀 Evrensel Taramayı Başlat"** butonuna basın.
+4.  **Ne Oluyor?**
+    *   Sistem sayfaya gider, içeriği çeker.
+    *   Yapay Zeka (OpenAI), içeriğin özetini çıkarır, konusunu anlar.
+    *   Vektör veritabanına kaydeder.
+    *   **Varlık Çıkarma:** İçerikte geçen kişi ve kurumları tespit edip "Knowledge Graph" veritabanına ekler.
+    *   **Yapı Kaydı:** Sayfanın HTML yapısını (React/WordPress) ilerideki güncellemeler için saklar.
+
+### Adım 2: Akıllı İçerik Linkleme
+Yeni bir blog yazısı yazarken eski yazılarınıza link vermek için:
+1.  **"✍️ Makale Linkleme"** sekmesine gelin.
+2.  Editör alanına taslağınızı veya sadece bir paragrafınızı yapıştırın.
+3.  **"✨ Linkleri Oluştur"** butonuna basın.
+4.  Sistem, yazdığınız metni analiz eder ve veritabanınızdaki **en alakalı** eski yazılarınıza otomatik link verir.
+
+### Adım 3: Konu Haritası (Knowledge Graph)
+Sitenizin röntgenini çekmek için:
+1.  **"🕸️ Konu Haritası"** sekmesine gelin.
+2.  **"Haritayı Oluştur"** butonuna basın.
+3.  Sitenizdeki makaleler ve içindeki Varlıkların (Entity) birbirine nasıl bağlandığını gösteren interaktif bir ağ haritası göreceksiniz.
+
+### Adım 4: Otonom Güncelleme (Arka Plan)
+x Bunu sizin tetiklemenize gerek yoktur. Worker servisi her gece 03:00'te uyanır:
+*   6 aydan eski yazıları bulur.
+*   Google'a gidip o konudaki **rakipleri analiz eder**.
+*   Sizin yazınızı, HTML yapısını bozmadan rakiplerdeki eksik bilgilerle günceller.
+
+---
+*Geliştirilmiş Antigravity Raporlama Modülü Tarafından Oluşturulmuştur.*
