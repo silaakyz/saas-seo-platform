@@ -162,3 +162,15 @@ with tabs[2]:
 
     st.markdown("---")
     st.caption("Developed with FastAPI & Streamlit")
+    
+    with st.expander("🛠️ Debug Bilgileri"):
+        st.write(f"**API URL:** `{API_URL}`")
+        st.write(f"**Supabase URL:** `{SUPABASE_URL}`")
+        try:
+            health = requests.get(f"{API_URL}/")
+            st.write(f"**API Durumu:** 🟢 Aktif ({health.json()})")
+            
+            routes = requests.get(f"{API_URL}/debug/routes")
+            st.write(f"**Rota Listesi:** {routes.json()}")
+        except Exception as e:
+             st.write(f"**API Durumu:** 🔴 Kapalı/Hata ({e})")

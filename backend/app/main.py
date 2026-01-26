@@ -89,4 +89,8 @@ def force_refresh_content(db: Session = Depends(get_db)):
 
 @app.get("/")
 def read_root():
-    return {"status": "ok", "service": "SEO Automation Backend"}
+    return {"status": "ok", "service": "SEO Automation Backend", "version": "1.1"}
+
+@app.get("/debug/routes")
+def list_routes():
+    return [route.path for route in app.routes]
