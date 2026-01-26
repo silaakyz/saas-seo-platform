@@ -1,114 +1,167 @@
-# 🚀 AI SEO SaaS Platform (v1.2)
+# 🚀 AI SEO SaaS Platform (v1.2) - Teknik Dokümantasyon
 
-Yapay zeka destekli, otonom ve modern bir SEO yönetim platformu. İçeriklerinizi analiz eder, anlamsal olarak linkler, rakipleri takip eder ve modası geçmiş içerikleri otomatik yeniler.
+**Otonom İçerik Yönetimi ve Semantik SEO Platformu**
 
-![Python](https://img.shields.io/badge/Python-3.11-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-Build-green) ![Streamlit](https://img.shields.io/badge/Streamlit-Tips-red) ![Supabase](https://img.shields.io/badge/Supabase-Orchestrator-orange) ![OpenAI](https://img.shields.io/badge/OpenAI-GPT4-purple)
-
----
-
-## 🌟 Öne Çıkan Özellikler
-
-### 1. 🧠 Akıllı İçerik Analizi (Ingestion Engine)
-*   **Evrensel Tarayıcı:** `trafilatura` ile herhangi bir URL'i veya Sitemap'i tarar.
-*   **AI Metadata:** GPT-4o-mini kullanarak içeriğin türünü ("Blog" vs "Ürün"), yayın tarihini ve **hedef anahtar kelimesini** otomatik çıkarır.
-*   **Vektör Veritabanı:** İçeriği 1536 boyutlu vektörlere dönüştürüp `pgvector` üzerinde saklar.
-*   **Knowledge Graph (Varlık Çıkarma):** Metindeki önemli kişileri, markaları ve kavramları (Entity) tespit edip veritabanına işler.
-
-### 2. ⚡ Otonom İçerik Yenileme (Auto-Refresh Loop)
-Sistem, "Yaz ve Unut" mantığıyla çalışmaz. Eski içerikleri sürekli canlı tutar:
-*   **Zamanlayıcı:** 6 aydan eski makaleleri otomatik tespit eder.
-*   **Yapı Koruyan "Mega Prompt":** Sitenizin **React, WordPress veya HTML** olduğunu anlar ve DOM yapısını (class, id, div) bozmadan sadece metni günceller.
-*   **SERP Entegrasyonu (Rakip Zekası):** Güncelleme yapmadan önce Google'daki (`Serper.dev`) ilk 5 rakibi analiz eder. Rakiplerin bahsettiği ama sizin eksik olduğunuz konuları içeriğe ekler.
-
-### 3. 🕸️ Knowledge Graph (Konu Haritası)
-Web sitenizdeki binlerce içerik arasındaki gizli bağlantıları görün.
-*   Makaleler ve içindeki Varlıklar (Entity) arasındaki ilişkileri görselleştirir.
-*   Streamlit üzerinde interaktif, fizik kurallı (physics-based) grafik sunar.
-
-### 4. 🔗 Anlamsal İç Linkleme (Smart Linker)
-Sadece kelime eşleşmesi değil, anlam eşleşmesi yapar.
-*   "Yapay Zeka" hakkındaki bir yazıya, içinde "Makine Öğrenimi" geçen diğer yazınızı otomatik önerir (Cosine Similarity).
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688.svg)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.31-FF4B4B.svg)](https://streamlit.io/)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E.svg)](https://supabase.com/)
+[![OpenAI](https://img.shields.io/badge/AI-Model-412991.svg)](https://openai.com/)
 
 ---
 
-## 🏗️ Mimari ve Teknolojiler
+## 📖 1. Proje Açıklaması
+Bu proje, web sitelerinin SEO (Arama Motoru Optimizasyonu) süreçlerini otonom hale getiren, yapay zeka destekli bir SaaS platformudur. Geleneksel SEO araçlarından farklı olarak sadece analiz yapmaz; içeriği **anlar**, **linkler** ve **günceller**.
 
-Bu proje **Microservice-ready** monolitik bir yapıda tasarlanmıştır.
+### Temel Yetenekler:
+*   **Akıllı Tarama (Universal Ingestion):** Her türlü web sitesini ve sitemap'i tarayıp yapılandırılmış veriye dönüştürür.
+*   **Anlamsal Linkleme (Semantic Linking):** Anahtar kelime eşleşmesi yerine anlam (vektör) eşleşmesi yaparak en doğru iç link önerilerini sunar.
+*   **Otonom Güncelleme:** İçeriklerin güncelliğini takip eder ve eskimiş makaleleri Google rakiplerine bakarak (SERP Analizi) otomatik yeniler.
+*   **Knowledge Graph:** Site içindeki varlıkların (Kişi, Teknoloji, Marka) haritasını çıkarır.
 
-| Katman | Teknoloji | Açıklama |
+---
+
+## 🎯 2. Senaryo Tanımı
+Dijital ajanslar ve büyük blog sahipleri için üç temel sorun vardır:
+1.  **Eski İçerik:** Yüzlerce yazının güncelliğini korumak imkansızdır.
+2.  **Yanlış Linkleme:** Editörler eski yazıları hatırlamaz, bu yüzden yeni yazılardan eskilere link verilemez (yetim sayfalar).
+3.  **Rakip Takibi:** Her yazı için Google'da rakipleri manuel inceleyip içeriği güncellemek saatler sürer.
+
+**Çözüm Senaryosu:**
+Kullanıcı, bir URL girer veya Sitemap adresini verir. Sistem tüm siteyi tarar ve Vektör Veritabanına kaydeder. Kullanıcı yeni bir yazı yazarken sistem, "Bu yazı X, Y ve Z eski yazılarınızla alakalı, şuralara link ver" der. Ayrıca, arka planda çalışan "Worker", 6 aydır güncellenmemiş bir yazı bulduğunda Google'da o konuyu aratır, rakiplerin yeni başlıklarını analiz eder ve yazıyı (HTML yapısını bozmadan) modernize eder.
+
+---
+
+## 🏗️ 3. MVC Mimarisi ve Teknik Yapı
+
+Proje, modern ve ölçeklenebilir bir mimari üzerine kurulmuştur. **Model-View-Controller (MVC)** prensiplerine sadık kalınmıştır.
+
+### **Model (Veri Katmanı)**
+`app/models.py` dosyasında PostgreSQL tabloları tanımlanmıştır:
+*   **Article:** İçerik, vektör (embedding), özet ve HTML yapısı.
+*   **Entity:** Kişi, kurum veya kavramlar.
+*   **ArticleEntity:** Makaleler ve varlıklar arasındaki ilişki.
+*   **Supabase (PostgreSQL + pgvector):** Verilerin fiziksel olarak saklandığı bulut veritabanı.
+
+### **View (Sunum Katmanı)**
+Kullanıcı ile etkileşime giren arayüz katmanıdır:
+*   **Streamlit (`frontend.py`):** Python ile yazılmış reaktif web arayüzü.
+    *   Tarama ekranı, Linkleme editörü, Konu Haritası görselleştirmesi.
+    *   JSON API yanıtlarını insan tarafından okunabilir grafiklere ve kartlara dönüştürür.
+
+### **Controller (İş Mantığı Katmanı)**
+Veri ile arayüz arasındaki köprüdür. `backend/app/main.py` ve servisler:
+*   **Ingestion Service (`ingestion.py`):** Veriyi çeker, temizler ve AI ile analiz eder.
+*   **Serp Service (`serp.py`):** Google API ile rakipleri analiz eder.
+*   **Linker Service (`linker.py`):** Vektör araması yaparak alakalı içerikleri bulur.
+*   **Worker (`worker.py`):** Arka planda zamanlanmış görevleri (Cron Jobs) yönetir.
+
+---
+
+## 📊 4. Veritabanı ER Diyagramı
+
+Sistemin kalbinde ilişkisel ve vektörel veritabanı bulunur.
+
+```mermaid
+erDiagram
+    ARTICLES {
+        int id PK
+        string url
+        string title
+        text content_summary
+        vector embedding "1536 dim"
+        string target_keyword
+        text html_structure_sample "Raw HTML"
+        datetime last_crawled_at
+    }
+
+    ENTITIES {
+        int id PK
+        string name
+        string category "Person, Org, etc."
+    }
+
+    ARTICLE_ENTITIES {
+        int id PK
+        int article_id FK
+        int entity_id FK
+    }
+
+    ARTICLES ||--o{ ARTICLE_ENTITIES : contains
+    ENTITIES ||--o{ ARTICLE_ENTITIES : appears_in
+```
+
+---
+
+## 🔌 5. API Endpoint Listesi
+
+Backend servislerine erişim sağlayan RESTful API uç noktaları:
+
+| Metot | Endpoint | Açıklama |
 | :--- | :--- | :--- |
-| **Backend** | Python (FastAPI) | API servisi ve asenkron işçiler (Workers). |
-| **Frontend** | Streamlit | Kullanıcı arayüzü ve yönetim paneli. |
-| **Database** | Supabase (PostgreSQL) | Veri ve Vektör saklama (`pgvector` eklentisi ile). |
-| **AI Engine** | OpenAI | GPT-4o-mini (Analiz/Rewrite) & text-embedding-3-small. |
-| **Search** | Serper.dev | Google arama sonuçları ve rakip analizi. |
-| **Deployment** | Docker & Render | Konteynerize edilmiş, tek tıkla deploy yapısı. |
+| `POST` | `/ingest` | Verilen URL'i tarar, analiz eder ve veritabanına kaydeder. |
+| `POST` | `/search` | Vektör araması yapar. Benzer içerikleri getirir. |
+| `POST` | `/autolink` | Verilen metin taslağı için iç link önerileri üretir. |
+| `POST` | `/admin/force-refresh` | Zamanlanmış güncellemeyi (Worker) manuel tetikler. |
+| `GET` | `/` | Sağlık kontrolü (Health Check). |
+| `GET` | `/debug/routes` | Tüm aktif rotaları listeler. |
 
 ---
 
-## 🛠️ Kurulum (Local Development)
+## 🛠️ 6. Kurulum Adımları
 
-Projeyi yerel makinenizde çalıştırmak için:
+Projeyi kendi ortamınızda çalıştırmak için aşağıdaki adımları izleyin.
 
-1.  **Repoyu Klonlayın:**
-    ```bash
-    git clone https://github.com/KULLANICI_ADINIZ/saas-seo-platform.git
-    cd saas-seo-platform/backend
-    ```
+### Gereksinimler
+*   Python 3.9+
+*   Supabase Hesabı (Veritabanı için)
+*   OpenAI API Key
+*   Serper.dev API Key
 
-2.  **Sanal Ortam Kurun:**
-    ```bash
-    python -m venv venv
-    # Windows:
-    .\venv\Scripts\activate
-    # Mac/Linux:
-    source venv/bin/activate
-    ```
+### Adım 1: Repoyu İndir
+```bash
+git clone https://github.com/KULLANICI_ADINIZ/saas-seo-platform.git
+cd saas-seo-platform/backend
+```
 
-3.  **Bağımlılıkları Yükleyin:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Adım 2: Sanal Ortamı Kur
+```bash
+python -m venv venv
+# Windows:
+.\venv\Scripts\activate
+# Mac:
+source venv/bin/activate
+```
 
-4.  **Çevresel Değişkenleri (.env) Ayarlayın:**
-    `backend/.env` dosyası oluşturun ve şunu ekleyin:
-    ```env
-    DATABASE_URL=postgresql://user:pass@supabase_host:5432/postgres
-    SUPABASE_URL=https://xyz.supabase.co
-    SUPABASE_KEY=anon_key_...
-    OPENAI_API_KEY=sk-...
-    SERPER_API_KEY=sk-... (Serper.dev'den alınan key)
-    ```
+### Adım 3: Kütüphaneleri Yükle
+```bash
+pip install -r requirements.txt
+```
 
-5.  **Uygulamayı Başlatın:**
-    *   **Backend & Frontend (Tek Komut):** `./run_app.sh` (Git Bash veya Linux)
-    *   **Veya Ayrı Ayrı:**
-        ```bash
-        # Terminal 1
-        python run.py
-        # Terminal 2
-        streamlit run frontend.py
-        ```
+### Adım 4: Ayarları Yap (.env)
+`backend` klasörü içinde `.env` dosyası oluşturun:
+```env
+DATABASE_URL=postgresql://user:pass@host:5432/postgres
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your-anon-key
+OPENAI_API_KEY=sk-proj-...
+SERPER_API_KEY=your-serper-key
+```
 
----
+### Adım 5: Başlat 🚀
+Uygulamayı tek komutla başlatabilirsiniz (Windows Git Bash veya Linux):
+```bash
+./run_app.sh
+```
 
-## ☁️ Deployment (Canlıya Alma)
+Veya manuel olarak:
+```bash
+# Terminal 1 (Backend)
+python run.py
 
-Bu proje **Render.com** uyumludur.
-
-1.  GitHub reponuzu Render'a bağlayın.
-2.  **Service Type:** Web Service
-3.  **Root Directory:** `backend`
-4.  **Build Command:** (Docker seçilirse otomatik algılar)
-5.  **Environment Variables** kısmına `.env` içindeki değerleri ekleyin.
-
----
-
-## 🔮 Gelecek Planları (Roadmap)
-
-*   [ ] **CMS Entegrasyonu:** WordPress/Shopify API ile güncellemeleri direkt siteye basma.
-*   [ ] **Multi-Agent:** Araştırmacı, Yazar ve Editör ajanlarının ayrılması.
-*   [ ] **Detaylı Raporlama:** PDF formatında aylık SEO gelişim raporu.
+# Terminal 2 (Frontend)
+streamlit run frontend.py
+```
 
 ---
-*Geliştirici: Antigravity Agent* 🤖
+*Geliştirilmiş Antigravity Raporlama Modülü Tarafından Oluşturulmuştur.*
