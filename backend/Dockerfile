@@ -12,6 +12,11 @@ RUN apt-get update && apt-get install -y \
 
 # 4. Kütüphaneleri kopyala ve yükle
 COPY requirements.txt .
+
+# Çözüm: Pip güncelle ve requests'i elle yükle (Blink vb. hataları önlemek için)
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install requests
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 5. Tüm proje kodlarını kopyala
