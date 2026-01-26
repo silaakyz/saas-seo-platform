@@ -2,16 +2,18 @@ import streamlit as st
 import requests
 from supabase import create_client, Client
 
+import os
+
 # FastAPI Backend Adresi
-API_URL = "http://127.0.0.1:8000"
+# Docker/Render ortaminda environment variable olarak gelecek
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(page_title="AI SEO Linker", page_icon="🔗", layout="wide")
 
 # --- SUPABASE AUTHENTICATION ---
-# LUTFEN BURAYI DOLDURUN: Supabase Project URL ve Anon Key
-# (Settings -> API bölümünde bulabilirsiniz)
-SUPABASE_URL = "SENIN_SUPABASE_URL"
-SUPABASE_KEY = "SENIN_SUPABASE_KEY"
+# Render Environment Variables'dan okur
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
 # Initialize Client
 try:
