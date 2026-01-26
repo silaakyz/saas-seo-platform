@@ -45,9 +45,15 @@ def check_and_update_articles():
             else:
                 current_content = article.content_summary # Fallback
             
-            # 2. Rewrite with AI (Mega Prompt)
+            # 2. Rewrite with AI (Mega Prompt + SERP)
             target_kw = article.target_keyword or article.title
-            new_content = embeddings.intelligent_content_rewrite(current_content, target_kw)
+            
+            # SERP Analizi
+            from .services.serp import get_competitor_analysis
+            competitor_data = get_competitor_analysis(target_kw)
+            print(f"SERP Analysis for '{target_kw}': {len(competitor_data)} chars.")
+
+            new_content = embeddings.intelligent_content_rewrite(current_content, target_kw, competitor_data)
             
             if new_content:
                 # 3. Update DB

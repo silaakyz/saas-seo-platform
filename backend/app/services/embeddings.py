@@ -45,9 +45,10 @@ def analyze_content(text: str):
         print(f"Error analyzing content: {e}")
         return {"title": "Unknown", "summary": text[:200]}
 
-def intelligent_content_rewrite(old_html, target_keyword):
+def intelligent_content_rewrite(old_html, target_keyword, competitor_data=""):
     """
     LLM kullanarak sayfa yapısını analiz eder ve bozmadan içeriği günceller.
+    Rakipleri de dikkate alır.
     """
     import json
     
@@ -63,6 +64,13 @@ def intelligent_content_rewrite(old_html, target_keyword):
     Lütfen aşağıdaki HTML içeriğini analiz et ve güncelle.
     
     HEDEF KEYWORD: {target_keyword}
+    
+    RAKİP ANALİZİ (Google İlk 5):
+    {competitor_data}
+    
+    TALİMAT: Rakiplerin başlıklarına ve içerik özetlerine bak. 
+    Eğer rakipler bizim değinmediğimiz bir konuya (örn: Fiyatlar, Yeni Modeller) değinmişse, 
+    bizim içeriğimizi de o konuları kapsayacak şekilde zenginleştir.
     
     ESKİ HTML İÇERİĞİ:
     {old_html[:15000]}

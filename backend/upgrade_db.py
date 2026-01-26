@@ -28,6 +28,16 @@ def upgrade_db():
                 logger.info("Column html_structure_sample added successfully.")
             except Exception as e:
                 logger.error(f"Error adding html_structure_sample: {e}")
+                
+        # Create Entity tables if they don't exist
+        try:
+            from app.models import Base, Entity, ArticleEntity
+            # This is a bit brute force, but effective for MVP. 
+            # Ideally we check if table exists first, but create_all handles that gracefully.
+            Base.metadata.create_all(bind=engine)
+            logger.info("Entity tables checked/created.")
+        except Exception as e:
+            logger.error(f"Error creating entity tables: {e}")
             
     except Exception as e:
         logger.error(f"Error upgrading database: {e}")

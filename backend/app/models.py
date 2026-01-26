@@ -29,3 +29,16 @@ class Article(Base):
     # Universal Pipeline Metadata
     user_id = Column(String, nullable=True) # Supabase User ID
     raw_content_hash = Column(String, nullable=True) # Değişiklik takibi için
+
+class Entity(Base):
+    __tablename__ = 'entities'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True) # Örn: "Elon Musk", "SEO", "Python"
+    category = Column(String) # Örn: "Person", "Concept", "Tool"
+
+# Hangi makalede hangi entity geçiyor? (Çoka-Çok İlişki)
+class ArticleEntity(Base):
+    __tablename__ = 'article_entities'
+    id = Column(Integer, primary_key=True)
+    article_id = Column(Integer) # ForeignKey eklemedim basitlik olsun diye
+    entity_id = Column(Integer)

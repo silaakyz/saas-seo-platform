@@ -3,7 +3,7 @@ from trafilatura.sitemaps import sitemap_search
 import json
 from datetime import datetime
 from openai import OpenAI
-from ..models import Article
+from ..models import Article, Entity, ArticleEntity
 from ..database import SessionLocal
 
 # LLM ve Veritabanı Ayarları
@@ -108,6 +108,22 @@ def pipeline_execution(url, db, user_id):
         
         db.add(new_article)
         db.commit()
+        
+        # Entity Kaydı
+        if analysis.get("entities"):
+            for ent in analysis["entities"]:
+                # Entity var mı diye bak, yoksa oluştur
+                existing_entity = db.query(Entity).filter(Entity.name == ent['name']).first()
+                if not existing_entity:
+                    existing_entity = Entity(name=ent['name'], category=ent['category'])
+                    db.add(existing_entity)
+                    db.commit()
+                
+                # İlişkiyi kaydet
+                rel = ArticleEntity(article_id=new_article.id, entity_id=existing_entity.id)
+                db.add(rel)
+            db.commit()
+
         print(f"✅ Eklendi: {analysis['title']}")
         return True
 
