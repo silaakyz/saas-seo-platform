@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from .models import Article
+from ..models import Article
 from . import embeddings
 
 def find_relevant_article(db: Session, query_text: str, threshold: float = 0.8):
