@@ -94,7 +94,8 @@ with tabs[0]:
                         
                         response = requests.post(f"{API_URL}/ingest", json=payload)
                         if response.status_code == 200:
-                            st.success(f"Başarılı! {response.json().get('details')}")
+                            st.success(f"✅ Başarılı! {response.json().get('details')}")
+                            st.info("İşlem arka planda devam ediyor. Bir süre sonra 'Makale Linkleme' sekmesini kullanarak içeriklerin gelip gelmediğini test edebilirsiniz.")
                         else:
                             st.error(f"Hata: {response.text}")
                     except Exception as e:

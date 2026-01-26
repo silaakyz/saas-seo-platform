@@ -27,13 +27,14 @@ class SearchRequest(BaseModel):
     query: str
     threshold: Optional[float] = 0.8
 
+from fastapi import BackgroundTasks
+
 @app.post("/ingest")
-def ingest_url(request: IngestRequest):
+def ingest_url(request: IngestRequest, background_tasks: BackgroundTasks):
     from .services import ingestion
-    # Using Universal Pipeline
-    # ideally run in background task, but keeping sync for immediate feedback as requested in previous turns
-    result = ingestion.process_universal_target(request.url, request.user_id)
-    return {"message": "Ingestion process completed", "details": result}
+    # Run in background to avoid HTTP timeout on Render
+    background_tasks.add_task(ingestion.process_universal_target, request.url, request.user_id)
+    return {"message": "Ingestion started", "details": "Tarama işlemi arka planda başlatıldı. Sitenin boyutuna göre birkaç dakika sürebilir. Lütfen bekleyin."}
 
 @app.post("/search")
 def search_articles(request: SearchRequest, db: Session = Depends(get_db)):
