@@ -19,6 +19,15 @@ def upgrade_db():
                 from app.models import Base
                 Base.metadata.create_all(bind=engine)
                 logger.info("Tables created using metadata.create_all.")
+
+        with engine.connect() as conn:
+            logger.info("Attempting to add html_structure_sample column...")
+            try:
+                conn.execute(text("ALTER TABLE articles ADD COLUMN IF NOT EXISTS html_structure_sample TEXT;"))
+                conn.commit()
+                logger.info("Column html_structure_sample added successfully.")
+            except Exception as e:
+                logger.error(f"Error adding html_structure_sample: {e}")
             
     except Exception as e:
         logger.error(f"Error upgrading database: {e}")

@@ -15,6 +15,7 @@ class Article(Base):
     
     # --- YENİ EKLENECEK SATIR ---
     target_keyword = Column(String, nullable=True) # Anahtar kelimeyi burada saklayacağız
+    html_structure_sample = Column(Text, nullable=True) # Yapı tespiti için ham HTML örneği
     # ----------------------------
     
     publish_date = Column(DateTime, default=datetime.utcnow)

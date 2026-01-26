@@ -102,6 +102,7 @@ def pipeline_execution(url, db, user_id):
             embedding=embedding,
             user_id=user_id,
             target_keyword=analysis.get('target_keyword', analysis['title']),
+            html_structure_sample=str(downloaded)[:100000] if downloaded else None, # İlk 100KB'ı sakla
             raw_content_hash=str(hash(text_content)) # Değişiklik takibi için
         )
         
