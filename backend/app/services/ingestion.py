@@ -84,6 +84,10 @@ def pipeline_execution(url, db, user_id):
         vector_text = f"{analysis['title']} {analysis['summary']}"
         embedding = get_embedding(vector_text)
 
+        if not embedding or len(embedding) == 0:
+            print(f"❌ Embedding oluşturulamadı (Muhtemelen OpenAI kotası doldu): {url}")
+            return False
+
         # ADIM 5: KAYIT (STORAGE)
         publish_date_val = analysis.get('publish_date')
         if hasattr(publish_date_val, 'startswith'): # is boolean check if string
