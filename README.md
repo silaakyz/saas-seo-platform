@@ -189,12 +189,6 @@ Yeni bir blog yazısı yazarken eski yazılarınıza link vermek için:
 3.  **"✨ Linkleri Oluştur"** butonuna basın.
 4.  Sistem, yazdığınız metni analiz eder ve veritabanınızdaki **en alakalı** eski yazılarınıza otomatik link verir.
 
-### Adım 3: Konu Haritası (Knowledge Graph)
-Sitenizin röntgenini çekmek için:
-1.  **"🕸️ Konu Haritası"** sekmesine gelin.
-2.  **"Haritayı Oluştur"** butonuna basın.
-3.  Sitenizdeki makaleler ve içindeki Varlıkların (Entity) birbirine nasıl bağlandığını gösteren interaktif bir ağ haritası göreceksiniz.
-
 ### Adım 4: Otonom Güncelleme (Arka Plan)
 x Bunu sizin tetiklemenize gerek yoktur. Worker servisi her gece 03:00'te uyanır:
 *   6 aydan eski yazıları bulur.
